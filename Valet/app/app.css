@@ -1,0 +1,5 @@
+@import 'nativescript-theme-core/css/core.dark.css';
+
+Label, TextField {
+    color:black;
+}

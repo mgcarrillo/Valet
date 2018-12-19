@@ -1,0 +1,50 @@
+{
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "readme": "NativeScript Application",
+  "repository": "<fill-your-repository-here>",
+  "nativescript": {
+    "id": "org.nativescript.Valet",
+    "tns-android": {
+      "version": "2.5.0"
+    }
+  },
+  "scripts": {
+    "platform:android": "tns platform add android && gulp",
+    "platform": "npm run platform:android",
+    "build": "tns build android",
+    "watch": "tns livesync android --watch"
+  },
+  "dependencies": {
+    "@angular/common": "4.0.0",
+    "@angular/compiler": "4.0.0",
+    "@angular/core": "4.0.0",
+    "@angular/forms": "4.0.0",
+    "@angular/http": "4.0.0",
+    "@angular/platform-browser": "4.0.0",
+    "@angular/platform-browser-dynamic": "4.0.0",
+    "@angular/router": "4.0.0",
+    "nativescript-angular": "~1.5.0",
+    "nativescript-geolocation": "0.0.19",
+    "nativescript-google-maps-sdk": "^1.4.3",
+    "nativescript-localstorage": "^1.1.0",
+    "nativescript-push-notifications": "^0.1.0",
+    "nativescript-theme-core": "~1.0.2",
+    "reflect-metadata": "~0.1.8",
+    "rxjs": "~5.2.0",
+    "tns-core-modules": "^2.5.2",
+    "zone.js": "~0.8.5"
+  },
+  "devDependencies": {
+    "babel-traverse": "6.23.1",
+    "babel-types": "6.23.0",
+    "babylon": "6.16.1",
+    "gulp": "^3.9.1",
+    "gulp-insert": "^0.5.0",
+    "gulp-replace": "^0.5.4",
+    "lazy": "1.0.11",
+    "nativescript-dev-android-snapshot": "^0.*.*",
+    "nativescript-dev-typescript": "^0.3.5",
+    "typescript": "~2.1.0"
+  }
+}
