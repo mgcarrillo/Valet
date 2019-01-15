@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ValetDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="sp_Driver_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DriverName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Latitude" Type="float" Mode="In" />
+          <Parameter Name="Longitude" Type="float" Mode="In" />
+          <Parameter Name="DeviceID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Expires" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="sp_DriverById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DriverId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DriverNotified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="driverId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetAllDrivers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetAllOperators" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetDriversToBeNotified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetOperatorById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="operatorId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetParkingInRadius" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="myLat" Type="float" Mode="In" />
+          <Parameter Name="myLong" Type="float" Mode="In" />
+          <Parameter Name="radius" Type="float" Mode="In" />
+        </Function>
+        <Function Name="sp_Operator_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OperatorName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Latitude" Type="float" Mode="In" />
+          <Parameter Name="Longitude" Type="float" Mode="In" />
+          <Parameter Name="Address1" Type="nvarchar" Mode="In" />
+          <Parameter Name="City" Type="nvarchar" Mode="In" />
+          <Parameter Name="State" Type="char" Mode="In" />
+          <Parameter Name="Zip" Type="char" Mode="In" />
+          <Parameter Name="Phone" Type="char" Mode="In" />
+          <Parameter Name="WebsiteUrl" Type="nvarchar" Mode="In" />
+          <Parameter Name="NumberOfSpaces" Type="int" Mode="In" />
+          <Parameter Name="InitialFee" Type="decimal" Mode="In" />
+          <Parameter Name="InitialHours" Type="int" Mode="In" />
+          <Parameter Name="HourlyFee" Type="decimal" Mode="In" />
+          <Parameter Name="AcceptsCash" Type="bit" Mode="In" />
+          <Parameter Name="AcceptsCredit" Type="bit" Mode="In" />
+          <Parameter Name="CoveredParking" Type="bit" Mode="In" />
+          <Parameter Name="Open24Hours" Type="bit" Mode="In" />
+          <Parameter Name="HourOpen" Type="int" Mode="In" />
+          <Parameter Name="HourClosed" Type="int" Mode="In" />
+          <Parameter Name="EventParking" Type="bit" Mode="In" />
+          <Parameter Name="ParkingGarage" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateExpires" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DeviceID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Expires" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="udf_GetDistanceMiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+          <Parameter Name="latA" Type="float" Mode="In" />
+          <Parameter Name="lonA" Type="float" Mode="In" />
+          <Parameter Name="latB" Type="float" Mode="In" />
+          <Parameter Name="lonB" Type="float" Mode="In" />
+        </Function>
+        <EntityContainer Name="ValetDBModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ValetDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ValetDBEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="sp_GetParkingInRadius" ReturnType="Collection(ValetDBModel.sp_GetParkingInRadius_Result)">
+            <Parameter Name="myLat" Mode="In" Type="Double" />
+            <Parameter Name="myLong" Mode="In" Type="Double" />
+            <Parameter Name="radius" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetOperatorById" ReturnType="Collection(ValetDBModel.sp_GetOperatorById_Result)">
+          <Parameter Name="operatorId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Operator_Insert">
+            <Parameter Name="OperatorName" Mode="In" Type="String" />
+            <Parameter Name="Latitude" Mode="In" Type="Double" />
+            <Parameter Name="Longitude" Mode="In" Type="Double" />
+            <Parameter Name="Address1" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="State" Mode="In" Type="String" />
+            <Parameter Name="Zip" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="WebsiteUrl" Mode="In" Type="String" />
+            <Parameter Name="NumberOfSpaces" Mode="In" Type="Int32" />
+            <Parameter Name="InitialFee" Mode="In" Type="Decimal" />
+            <Parameter Name="InitialHours" Mode="In" Type="Int32" />
+            <Parameter Name="HourlyFee" Mode="In" Type="Decimal" />
+            <Parameter Name="AcceptsCash" Mode="In" Type="Boolean" />
+            <Parameter Name="AcceptsCredit" Mode="In" Type="Boolean" />
+            <Parameter Name="CoveredParking" Mode="In" Type="Boolean" />
+            <Parameter Name="Open24Hours" Mode="In" Type="Boolean" />
+            <Parameter Name="HourOpen" Mode="In" Type="Int32" />
+            <Parameter Name="HourClosed" Mode="In" Type="Int32" />
+            <Parameter Name="EventParking" Mode="In" Type="Boolean" />
+            <Parameter Name="ParkingGarage" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Driver_Insert">
+            <Parameter Name="DriverName" Mode="In" Type="String" />
+            <Parameter Name="Latitude" Mode="In" Type="Double" />
+            <Parameter Name="Longitude" Mode="In" Type="Double" />
+            <Parameter Name="DeviceID" Mode="In" Type="String" />
+            <Parameter Name="Expires" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DriverById" ReturnType="Collection(ValetDBModel.sp_DriverById_Result)">
+          <Parameter Name="DriverId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetAllDrivers" ReturnType="Collection(ValetDBModel.sp_GetAllDrivers_Result)" />
+          <FunctionImport Name="sp_GetAllOperators" ReturnType="Collection(ValetDBModel.sp_GetAllOperators_Result)" />
+          <FunctionImport Name="sp_GetDriversToBeNotified" ReturnType="Collection(ValetDBModel.sp_GetDriversToBeNotified_Result)" />
+          <FunctionImport Name="sp_DriverNotified">
+          <Parameter Name="driverId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateExpires">
+            <Parameter Name="DeviceID" Mode="In" Type="String" />
+            <Parameter Name="Expires" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_GetParkingInRadius_Result">
+          <Property Type="String" Name="OperatorName" Nullable="true" MaxLength="200" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+          <Property Type="String" Name="Address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="StateID" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Zip" Nullable="true" MaxLength="12" />
+          <Property Type="Int32" Name="NumberOfSpaces" Nullable="true" />
+          <Property Type="Decimal" Name="InitialFee" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="InitialHours" Nullable="true" />
+          <Property Type="Decimal" Name="HourlyFee" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Boolean" Name="AcceptsCash" Nullable="true" />
+          <Property Type="Boolean" Name="AcceptsCredit" Nullable="true" />
+          <Property Type="Boolean" Name="CoveredParking" Nullable="true" />
+          <Property Type="Boolean" Name="Open24Hours" Nullable="true" />
+          <Property Type="Int32" Name="HourOpen" Nullable="true" />
+          <Property Type="Int32" Name="HourClosed" Nullable="true" />
+          <Property Type="Boolean" Name="EventParking" Nullable="false" />
+          <Property Type="Boolean" Name="ParkingGarage" Nullable="false" />
+          <Property Type="Double" Name="Distance" Nullable="true" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="WebsiteUrl" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_GetOperatorById_Result">
+          <Property Type="String" Name="OperatorName" Nullable="true" MaxLength="200" />
+          <Property Type="Double" Name="Latitude" Nullable="false" />
+          <Property Type="Double" Name="Longitude" Nullable="false" />
+          <Property Type="String" Name="Address1" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StateID" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Zip" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="WebsiteUrl" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="NumberOfSpaces" Nullable="true" />
+          <Property Type="Decimal" Name="InitialFee" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="InitialHours" Nullable="false" />
+          <Property Type="Decimal" Name="HourlyFee" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Boolean" Name="AcceptsCash" Nullable="false" />
+          <Property Type="Boolean" Name="AcceptsCredit" Nullable="false" />
+          <Property Type="Boolean" Name="CoveredParking" Nullable="false" />
+          <Property Type="Boolean" Name="Open24Hours" Nullable="false" />
+          <Property Type="Int32" Name="HourOpen" Nullable="false" />
+          <Property Type="Int32" Name="HourClosed" Nullable="false" />
+          <Property Type="Boolean" Name="EventParking" Nullable="false" />
+          <Property Type="Boolean" Name="ParkingGarage" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_DriverById_Result">
+          <Property Type="String" Name="DriverName" Nullable="true" MaxLength="200" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+          <Property Type="String" Name="DeviceID" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="Expires" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Notified" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetAllDrivers_Result">
+          <Property Type="String" Name="DriverName" Nullable="true" MaxLength="200" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+          <Property Type="String" Name="DeviceID" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="Expires" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Notified" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetAllOperators_Result">
+          <Property Type="String" Name="OperatorName" Nullable="true" MaxLength="200" />
+          <Property Type="Double" Name="Latitude" Nullable="false" />
+          <Property Type="Double" Name="Longitude" Nullable="false" />
+          <Property Type="String" Name="Address1" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="StateID" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Zip" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="WebsiteUrl" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="NumberOfSpaces" Nullable="true" />
+          <Property Type="Decimal" Name="InitialFee" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="InitialHours" Nullable="false" />
+          <Property Type="Decimal" Name="HourlyFee" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Boolean" Name="AcceptsCash" Nullable="false" />
+          <Property Type="Boolean" Name="AcceptsCredit" Nullable="false" />
+          <Property Type="Boolean" Name="CoveredParking" Nullable="false" />
+          <Property Type="Boolean" Name="Open24Hours" Nullable="false" />
+          <Property Type="Int32" Name="HourOpen" Nullable="false" />
+          <Property Type="Int32" Name="HourClosed" Nullable="false" />
+          <Property Type="Boolean" Name="EventParking" Nullable="false" />
+          <Property Type="Boolean" Name="ParkingGarage" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetDriversToBeNotified_Result">
+          <Property Type="String" Name="DriverName" Nullable="true" MaxLength="200" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+          <Property Type="String" Name="DeviceID" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="Expires" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Notified" Nullable="true" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ValetDBModelStoreContainer" CdmEntityContainer="ValetDBEntities" >
+          <FunctionImportMapping FunctionImportName="sp_GetParkingInRadius" FunctionName="ValetDBModel.Store.sp_GetParkingInRadius">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ValetDBModel.sp_GetParkingInRadius_Result">
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="NumberOfSpaces" ColumnName="NumberOfSpaces" />
+                <ScalarProperty Name="InitialFee" ColumnName="InitialFee" />
+                <ScalarProperty Name="InitialHours" ColumnName="InitialHours" />
+                <ScalarProperty Name="HourlyFee" ColumnName="HourlyFee" />
+                <ScalarProperty Name="AcceptsCash" ColumnName="AcceptsCash" />
+                <ScalarProperty Name="AcceptsCredit" ColumnName="AcceptsCredit" />
+                <ScalarProperty Name="CoveredParking" ColumnName="CoveredParking" />
+                <ScalarProperty Name="Open24Hours" ColumnName="Open24Hours" />
+                <ScalarProperty Name="HourOpen" ColumnName="HourOpen" />
+                <ScalarProperty Name="HourClosed" ColumnName="HourClosed" />
+                <ScalarProperty Name="EventParking" ColumnName="EventParking" />
+                <ScalarProperty Name="ParkingGarage" ColumnName="ParkingGarage" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="WebsiteUrl" ColumnName="WebsiteUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetOperatorById" FunctionName="ValetDBModel.Store.sp_GetOperatorById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ValetDBModel.sp_GetOperatorById_Result">
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="WebsiteUrl" ColumnName="WebsiteUrl" />
+                <ScalarProperty Name="NumberOfSpaces" ColumnName="NumberOfSpaces" />
+                <ScalarProperty Name="InitialFee" ColumnName="InitialFee" />
+                <ScalarProperty Name="InitialHours" ColumnName="InitialHours" />
+                <ScalarProperty Name="HourlyFee" ColumnName="HourlyFee" />
+                <ScalarProperty Name="AcceptsCash" ColumnName="AcceptsCash" />
+                <ScalarProperty Name="AcceptsCredit" ColumnName="AcceptsCredit" />
+                <ScalarProperty Name="CoveredParking" ColumnName="CoveredParking" />
+                <ScalarProperty Name="Open24Hours" ColumnName="Open24Hours" />
+                <ScalarProperty Name="HourOpen" ColumnName="HourOpen" />
+                <ScalarProperty Name="HourClosed" ColumnName="HourClosed" />
+                <ScalarProperty Name="EventParking" ColumnName="EventParking" />
+                <ScalarProperty Name="ParkingGarage" ColumnName="ParkingGarage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Operator_Insert" FunctionName="ValetDBModel.Store.sp_Operator_Insert" />
+          <FunctionImportMapping FunctionImportName="sp_Driver_Insert" FunctionName="ValetDBModel.Store.sp_Driver_Insert" />
+          <FunctionImportMapping FunctionImportName="sp_DriverById" FunctionName="ValetDBModel.Store.sp_DriverById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ValetDBModel.sp_DriverById_Result">
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Notified" ColumnName="Notified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAllDrivers" FunctionName="ValetDBModel.Store.sp_GetAllDrivers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ValetDBModel.sp_GetAllDrivers_Result">
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Notified" ColumnName="Notified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAllOperators" FunctionName="ValetDBModel.Store.sp_GetAllOperators">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ValetDBModel.sp_GetAllOperators_Result">
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="WebsiteUrl" ColumnName="WebsiteUrl" />
+                <ScalarProperty Name="NumberOfSpaces" ColumnName="NumberOfSpaces" />
+                <ScalarProperty Name="InitialFee" ColumnName="InitialFee" />
+                <ScalarProperty Name="InitialHours" ColumnName="InitialHours" />
+                <ScalarProperty Name="HourlyFee" ColumnName="HourlyFee" />
+                <ScalarProperty Name="AcceptsCash" ColumnName="AcceptsCash" />
+                <ScalarProperty Name="AcceptsCredit" ColumnName="AcceptsCredit" />
+                <ScalarProperty Name="CoveredParking" ColumnName="CoveredParking" />
+                <ScalarProperty Name="Open24Hours" ColumnName="Open24Hours" />
+                <ScalarProperty Name="HourOpen" ColumnName="HourOpen" />
+                <ScalarProperty Name="HourClosed" ColumnName="HourClosed" />
+                <ScalarProperty Name="EventParking" ColumnName="EventParking" />
+                <ScalarProperty Name="ParkingGarage" ColumnName="ParkingGarage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetDriversToBeNotified" FunctionName="ValetDBModel.Store.sp_GetDriversToBeNotified">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ValetDBModel.sp_GetDriversToBeNotified_Result">
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Notified" ColumnName="Notified" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DriverNotified" FunctionName="ValetDBModel.Store.sp_DriverNotified" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateExpires" FunctionName="ValetDBModel.Store.sp_UpdateExpires" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

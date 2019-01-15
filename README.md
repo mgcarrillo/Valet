@@ -1,2 +1,2 @@
-# Valet
-valet hackathon
+# ParkingService
+backend service for Valet mobile app
